@@ -1,2 +1,2 @@
-# FXOSSDK
+# FXOS-SDK
 The FX/OS API
