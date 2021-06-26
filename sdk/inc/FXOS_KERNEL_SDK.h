@@ -1,6 +1,6 @@
 /*
  * FXOS_KERNEL_SDK.h
- * Created Jun 26, 2021 12:48:13 AM
+ * Created Jun 26, 2021 2:23:16 PM
  *
  */
 
@@ -117,8 +117,8 @@ PFXPROCESS GetProcessByName(LPCSTR processName);
 * Arguments: 
 *
 */
-typedef PFXPROCESS (*GETPROCESSLIST)(void);
-PFXPROCESS GetProcessList(VOID);
+typedef PFXPROCESS* (*GETPROCESSLIST)(void);
+PFXPROCESS* GetProcessList(VOID);
 
 /*
 *
@@ -746,17 +746,6 @@ LPVOID GetSegmentInfo(HANDLE handle);
 */
 typedef VOID (*QUEUEINITIALIZE)(PFXQUEUE);
 VOID QueueInitialize(PFXQUEUE q);
-
-/*
-*
-* Name:QueueInit
-* Subsystem:KERNEL
-* Description: 
-* Arguments: 
-*
-*/
-typedef VOID (*QUEUEINIT)(PFXQUEUE);
-VOID QueueInit(PFXQUEUE q);
 
 /*
 *

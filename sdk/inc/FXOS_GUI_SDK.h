@@ -1,6 +1,6 @@
 /*
  * FXOS_GUI_SDK.h
- * Created Jun 26, 2021 12:48:13 AM
+ * Created Jun 26, 2021 2:23:16 PM
  *
  */
 
@@ -295,17 +295,6 @@ PWINDOW CreateTextBox(HWND hWndParent,LPCSTR caption,UINT textboxId,UINT style,i
 */
 typedef PWINDOW (*CREATEVERTICALSCROLLBAR)(HWND,LPCSTR,UINT);
 PWINDOW CreateVerticalScrollBar(HWND hWndParent,LPCSTR caption,UINT buttonId);
-
-/*
-*
-* Name:CreateHorizontalScrollBar
-* Subsystem:GUI
-* Description: 
-* Arguments: 
-*
-*/
-typedef PWINDOW (*CREATEHORIZONTALSCROLLBAR)(HWND,LPCSTR,UINT);
-PWINDOW CreateHorizontalScrollBar(HWND hWndParent,LPCSTR caption,UINT buttonId);
 
 /*
 *

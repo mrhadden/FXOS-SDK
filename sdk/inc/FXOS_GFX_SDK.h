@@ -1,6 +1,6 @@
 /*
  * FXOS_GFX_SDK.h
- * Created Jun 26, 2021 12:48:13 AM
+ * Created Jun 26, 2021 2:23:16 PM
  *
  */
 
@@ -155,39 +155,6 @@ PRECT HwndToRect(HWND hWnd);
 
 /*
 *
-* Name:DrawPixel
-* Subsystem:GFX
-* Description: 
-* Arguments: 
-*
-*/
-typedef void (*DRAWPIXEL)(char,char,char);
-void DrawPixel(char fcolor,char fcolor2,char fcolor3);
-
-/*
-*
-* Name:SetForegroundColor
-* Subsystem:GFX
-* Description: 
-* Arguments: 
-*
-*/
-typedef void (*SETFOREGROUNDCOLOR)(void);
-void SetForegroundColor(VOID);
-
-/*
-*
-* Name:SetBackgroundColor
-* Subsystem:GFX
-* Description: 
-* Arguments: 
-*
-*/
-typedef void (*SETBACKGROUNDCOLOR)(void);
-void SetBackgroundColor(VOID);
-
-/*
-*
 * Name:EnableTextMode
 * Subsystem:GFX
 * Description: 
@@ -328,6 +295,28 @@ void GFXBitBlt(int x0,int y0,int width,int height,int x1,int y1);
 */
 typedef void (*GFXBANKBITBLT)(LPCHAR,int,int,int,int,LPCHAR,int,int,int);
 void GFXBankBitBlt(LPCHAR srcBank,int x0,int y0,int width,int height,LPCHAR destBank,int x1,int y1,int direction);
+
+/*
+*
+* Name:DrawPixel
+* Subsystem:GFX
+* Description: 
+* Arguments: 
+*
+*/
+typedef void (*DRAWPIXEL)(long,long,char);
+void DrawPixel(long x,long y,char pcolor);
+
+/*
+*
+* Name:DrawPixelEx
+* Subsystem:GFX
+* Description: 
+* Arguments: 
+*
+*/
+typedef void (*DRAWPIXELEX)(long,long,char,UINT);
+void DrawPixelEx(long x,long y,char pcolor,UINT page);
 
 /*
 *

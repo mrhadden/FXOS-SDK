@@ -1,6 +1,6 @@
 /*
  * FXOS_CON_SDK.h
- * Created Jun 26, 2021 12:48:13 AM
+ * Created Jun 26, 2021 2:23:16 PM
  *
  */
 
@@ -155,25 +155,14 @@ void SetConsoleCursorPosition(int x,int y);
 
 /*
 *
-* Name:SetConsoleClearScreen
+* Name:ConsoleClearScreen
 * Subsystem:CON
 * Description: 
 * Arguments: 
 *
 */
-typedef void (*SETCONSOLECLEARSCREEN)(int);
-void SetConsoleClearScreen(int bcolor);
-
-/*
-*
-* Name:ConsolePrint
-* Subsystem:CON
-* Description: 
-* Arguments: 
-*
-*/
-typedef void (*CONSOLEPRINT)(char*);
-void ConsolePrint(char* message);
+typedef void (*CONSOLECLEARSCREEN)(int);
+void ConsoleClearScreen(int bcolor);
 
 /*
 *
@@ -229,6 +218,61 @@ int SetConsoleColor(int col,int row,char* textColor);
 */
 typedef void (*CREATECONSOLEDIALOG)(int,int,int,int,LPCSTR);
 void CreateConsoleDialog(int x,int y,int width,int height,LPCSTR message);
+
+/*
+*
+* Name:ConsolePrint
+* Subsystem:CON
+* Description: 
+* Arguments: 
+*
+*/
+typedef int (*CONSOLEPRINT)(LPCSTR);
+int ConsolePrint(LPCSTR message);
+
+/*
+*
+* Name:ConsoleClear
+* Subsystem:CON
+* Description: 
+* Arguments: 
+*
+*/
+typedef void (*CONSOLECLEAR)(VOID);
+void ConsoleClear(VOID);
+
+/*
+*
+* Name:SetConsolePosition
+* Subsystem:CON
+* Description: 
+* Arguments: 
+*
+*/
+typedef void (*SETCONSOLEPOSITION)(int,int);
+void SetConsolePosition(int row,int col);
+
+/*
+*
+* Name:GetConsoleRow
+* Subsystem:CON
+* Description: 
+* Arguments: 
+*
+*/
+typedef int (*GETCONSOLEROW)(VOID);
+int GetConsoleRow(VOID);
+
+/*
+*
+* Name:GetConsoleColumn
+* Subsystem:CON
+* Description: 
+* Arguments: 
+*
+*/
+typedef int (*GETCONSOLECOLUMN)(VOID);
+int GetConsoleColumn(VOID);
 
 /*
 *

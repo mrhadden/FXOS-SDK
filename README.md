@@ -1,5 +1,5 @@
 # FXOS-SDK
-The FX/OS API [Jun 26, 2021 1:01:00 PM] 
+The FX/OS API [Jun 26, 2021 2:23:16 PM] 
 
 This is the offical SDK for FX/OS.  It is still under heavy development for stabilization and enhancement.
 
@@ -62,7 +62,7 @@ PFXPROCESS GetProcessByName(LPCSTR processName);
 
 **GetProcessList** - Description: Coming Soon
 ```
-PFXPROCESS GetProcessList(VOID);
+PFXPROCESS* GetProcessList(VOID);
 ```
 
 **LaunchProcess** - Description: Coming Soon
@@ -348,11 +348,6 @@ LPVOID GetSegmentInfo(HANDLE handle);
 **QueueInitialize** - Description: Coming Soon
 ```
 VOID QueueInitialize(PFXQUEUE q);
-```
-
-**QueueInit** - Description: Coming Soon
-```
-VOID QueueInit(PFXQUEUE q);
 ```
 
 **QueueIsEmpty** - Description: Coming Soon
@@ -911,21 +906,6 @@ int GetUIColorMetric(int index);
 PRECT HwndToRect(HWND hWnd);
 ```
 
-**DrawPixel** - Description: Coming Soon
-```
-void DrawPixel(char fcolor,char fcolor2,char fcolor3);
-```
-
-**SetForegroundColor** - Description: Coming Soon
-```
-void SetForegroundColor(VOID);
-```
-
-**SetBackgroundColor** - Description: Coming Soon
-```
-void SetBackgroundColor(VOID);
-```
-
 **EnableTextMode** - Description: Coming Soon
 ```
 void EnableTextMode(VOID);
@@ -989,6 +969,16 @@ void GFXBitBlt(int x0,int y0,int width,int height,int x1,int y1);
 **GFXBankBitBlt** - Description: Coming Soon
 ```
 void GFXBankBitBlt(LPCHAR srcBank,int x0,int y0,int width,int height,LPCHAR destBank,int x1,int y1,int direction);
+```
+
+**DrawPixel** - Description: Coming Soon
+```
+void DrawPixel(long x,long y,char pcolor);
+```
+
+**DrawPixelEx** - Description: Coming Soon
+```
+void DrawPixelEx(long x,long y,char pcolor,UINT page);
 ```
 
 **DrawPixelFront** - Description: Coming Soon
@@ -1244,11 +1234,6 @@ PWINDOW CreateTextBox(HWND hWndParent,LPCSTR caption,UINT textboxId,UINT style,i
 PWINDOW CreateVerticalScrollBar(HWND hWndParent,LPCSTR caption,UINT buttonId);
 ```
 
-**CreateHorizontalScrollBar** - Description: Coming Soon
-```
-PWINDOW CreateHorizontalScrollBar(HWND hWndParent,LPCSTR caption,UINT buttonId);
-```
-
 **CreateMsgBox** - Description: Coming Soon
 ```
 PWINDOW CreateMsgBox(UINT type,LPCSTR caption,UINT buttonType,int x,int y);
@@ -1391,14 +1376,9 @@ void SetConsoleCursor(UINT page);
 void SetConsoleCursorPosition(int x,int y);
 ```
 
-**SetConsoleClearScreen** - Description: Coming Soon
+**ConsoleClearScreen** - Description: Coming Soon
 ```
-void SetConsoleClearScreen(int bcolor);
-```
-
-**ConsolePrint** - Description: Coming Soon
-```
-void ConsolePrint(char* message);
+void ConsoleClearScreen(int bcolor);
 ```
 
 **ConsolePrintChar** - Description: Coming Soon
@@ -1424,6 +1404,31 @@ int SetConsoleColor(int col,int row,char* textColor);
 **CreateConsoleDialog** - Description: Coming Soon
 ```
 void CreateConsoleDialog(int x,int y,int width,int height,LPCSTR message);
+```
+
+**ConsolePrint** - Description: Coming Soon
+```
+int ConsolePrint(LPCSTR message);
+```
+
+**ConsoleClear** - Description: Coming Soon
+```
+void ConsoleClear(VOID);
+```
+
+**SetConsolePosition** - Description: Coming Soon
+```
+void SetConsolePosition(int row,int col);
+```
+
+**GetConsoleRow** - Description: Coming Soon
+```
+int GetConsoleRow(VOID);
+```
+
+**GetConsoleColumn** - Description: Coming Soon
+```
+int GetConsoleColumn(VOID);
 ```
 
 **CreateConsoleWindow** - Description: Coming Soon
