@@ -1,6 +1,6 @@
 /*
  * FXOS_GUI_SDK.h
- * Created Jun 26, 2021 2:23:16 PM
+ * Created Jul 28, 2021 10:43:36 PM
  *
  */
 
@@ -133,6 +133,17 @@ HPOINTER RegisterMousePointerClass(LPCSTR pFontName,LPCSTR pCursorData);
 
 /*
 *
+* Name:LoadFontClass
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef LPVOID (*LOADFONTCLASS)(LPSTR);
+LPVOID LoadFontClass(LPSTR path);
+
+/*
+*
 * Name:RegisterFontClass
 * Subsystem:GUI
 * Description: 
@@ -152,6 +163,39 @@ HFONT RegisterFontClass(LPCSTR pFontName,LPCSTR pFontData);
 */
 typedef HFONT (*GETFONTCLASS)(LPCSTR);
 HFONT GetFontClass(LPCSTR pFontName);
+
+/*
+*
+* Name:LoadResource
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef HANDLE (*LOADRESOURCE)(LPCSTR);
+HANDLE LoadResource(LPCSTR resourceFile);
+
+/*
+*
+* Name:GetStringTableEntry
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef PFXSTRING (*GETSTRINGTABLEENTRY)(UINT);
+PFXSTRING GetStringTableEntry(UINT objId);
+
+/*
+*
+* Name:RegisterStringTable
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef BOOL (*REGISTERSTRINGTABLE)(HANDLE,BOOL);
+BOOL RegisterStringTable(HANDLE hStringTable,BOOL bRelease);
 
 /*
 *
@@ -221,6 +265,39 @@ PWINDOW CreateMenu(HWND hWndParent,HMENU hMenu,HINSTANCE hInstance);
 
 /*
 *
+* Name:CloseMenu
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*CLOSEMENU)(HWND);
+VOID CloseMenu(HWND hWndMenu);
+
+/*
+*
+* Name:SelectMenu
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*SELECTMENU)(HWND,UINT);
+VOID SelectMenu(HWND hWndMenu,UINT index);
+
+/*
+*
+* Name:HighlightMenu
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*HIGHLIGHTMENU)(HWND,UINT,BOOL);
+VOID HighlightMenu(HWND hWndMenu,UINT index,BOOL selected);
+
+/*
+*
 * Name:CreateMenuResource
 * Subsystem:GUI
 * Description: 
@@ -262,6 +339,28 @@ VOID SetMenuItemAttribute(HMENU hMenu,HFONT hFont);
 */
 typedef BOOL (*SETMENUSTATE)(HMENU,UINT,UINT);
 BOOL SetMenuState(HMENU hMenu,UINT cmdId,UINT state);
+
+/*
+*
+* Name:SendMenuAccelerator
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef HWND (*SENDMENUACCELERATOR)(CHAR);
+HWND SendMenuAccelerator(CHAR accelkey);
+
+/*
+*
+* Name:SendMenuAcceleratorItem
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef HWND (*SENDMENUACCELERATORITEM)(HWND,UINT);
+HWND SendMenuAcceleratorItem(HWND dropDown,UINT menuPos);
 
 /*
 *

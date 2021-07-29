@@ -1,6 +1,6 @@
 /*
  * FXOS_KERNEL_SDK.h
- * Created Jun 26, 2021 2:23:16 PM
+ * Created Jul 28, 2021 10:43:36 PM
  *
  */
 
@@ -62,8 +62,8 @@ BOOL SendProcessMessage(PFXPROCESS process,MSGTYPE msgType,UINT cmdCId,UINT cmdM
 * Arguments: 
 *
 */
-typedef HANDLE (*REGISTERIDLEPROC)(FXIDLEPROCESS);
-HANDLE RegisterIdleProc(FXIDLEPROCESS idleProc);
+typedef HANDLE (*REGISTERIDLEPROC)(FXIDLEPROCESS,UINT);
+HANDLE RegisterIdleProc(FXIDLEPROCESS idleProc,UINT resolution);
 
 /*
 *
@@ -84,8 +84,8 @@ BOOL UnregisterIdleProc(HANDLE hIdleProc);
 * Arguments: 
 *
 */
-typedef VOID (*RAISEEXCEPTION)(ULONG,ULONG,LPVOID,UINT);
-VOID RaiseException(ULONG ctxId,ULONG errorId,LPVOID exceptionMessage,UINT exMsgSize);
+typedef VOID (*RAISEEXCEPTION)(LPVOID,ULONG,LPVOID,UINT);
+VOID RaiseException(LPVOID ctxId,ULONG errorId,LPVOID exceptionMessage,UINT exMsgSize);
 
 /*
 *
@@ -262,6 +262,17 @@ void DebugPointer(char* debugString,void* p);
 */
 typedef void (*DEBUGINTEGER)(char*,UINT);
 void DebugInteger(char* debugString,UINT n);
+
+/*
+*
+* Name:DebugHexInteger
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef void (*DEBUGHEXINTEGER)(char*,UINT);
+void DebugHexInteger(char* debugString,UINT n);
 
 /*
 *
@@ -474,6 +485,17 @@ VOID DebugOff(VOID);
 
 /*
 *
+* Name:GetMilliseconds
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef ULONG (*GETMILLISECONDS)(VOID);
+ULONG GetMilliseconds(VOID);
+
+/*
+*
 * Name:GetRTCHour
 * Subsystem:KERNEL
 * Description: 
@@ -606,6 +628,17 @@ void GetHardwareVersionMinor(char* buffer);
 
 /*
 *
+* Name:GetHardwareRelease
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef void (*GETHARDWARERELEASE)(char*);
+void GetHardwareRelease(char* buffer);
+
+/*
+*
 * Name:MemoryCopy
 * Subsystem:KERNEL
 * Description: 
@@ -735,6 +768,116 @@ VOID SegmentUnload(LPVOID segment);
 */
 typedef LPVOID (*GETSEGMENTINFO)(HANDLE);
 LPVOID GetSegmentInfo(HANDLE handle);
+
+/*
+*
+* Name:IPCOpenPort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef PIPCPORT (*IPCOPENPORT)(LPCSTR,BYTE);
+PIPCPORT IPCOpenPort(LPCSTR portName,BYTE type);
+
+/*
+*
+* Name:IPCGetPort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef PIPCPORT (*IPCGETPORT)(LPCSTR);
+PIPCPORT IPCGetPort(LPCSTR portName);
+
+/*
+*
+* Name:IPCClosePort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*IPCCLOSEPORT)(PIPCPORT);
+VOID IPCClosePort(PIPCPORT port);
+
+/*
+*
+* Name:IPCReadPort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef LPVOID (*IPCREADPORT)(PIPCPORT);
+LPVOID IPCReadPort(PIPCPORT port);
+
+/*
+*
+* Name:IPCPeekPort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef LPVOID (*IPCPEEKPORT)(PIPCPORT);
+LPVOID IPCPeekPort(PIPCPORT port);
+
+/*
+*
+* Name:IPCWritePort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef UINT (*IPCWRITEPORT)(PIPCPORT,LPVOID,UINT);
+UINT IPCWritePort(PIPCPORT port,LPVOID data,UINT size);
+
+/*
+*
+* Name:IPCWriteBytePort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*IPCWRITEBYTEPORT)(PIPCPORT,BYTE);
+VOID IPCWriteBytePort(PIPCPORT port,BYTE data);
+
+/*
+*
+* Name:IPCWriteVerbPort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*IPCWRITEVERBPORT)(PIPCPORT,BYTE,BYTE);
+VOID IPCWriteVerbPort(PIPCPORT port,BYTE data1,BYTE data2);
+
+/*
+*
+* Name:IPCWriteIntegerPort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*IPCWRITEINTEGERPORT)(PIPCPORT,UINT);
+VOID IPCWriteIntegerPort(PIPCPORT port,UINT data);
+
+/*
+*
+* Name:IPCWriteLongPort
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*IPCWRITELONGPORT)(PIPCPORT,ULONG);
+VOID IPCWriteLongPort(PIPCPORT port,ULONG data);
 
 /*
 *
@@ -1057,6 +1200,17 @@ PFXNODE NodeListFindByName(PFXNODELIST list,LPCSTR name);
 
 /*
 *
+* Name:NodeListFindById
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef PFXNODE (*NODELISTFINDBYID)(PFXNODELIST,ULONG);
+PFXNODE NodeListFindById(PFXNODELIST list,ULONG objId);
+
+/*
+*
 * Name:NodeListFindByType
 * Subsystem:KERNEL
 * Description: 
@@ -1354,6 +1508,39 @@ BOOL FXStringEquals(PFXSTRING string,LPCHAR match);
 
 /*
 *
+* Name:FXStringAppendInteger
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef PFXSTRING (*FXSTRINGAPPENDINTEGER)(PFXSTRING,UINT);
+PFXSTRING FXStringAppendInteger(PFXSTRING string,UINT integer);
+
+/*
+*
+* Name:FXStringAppendLong
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef PFXSTRING (*FXSTRINGAPPENDLONG)(PFXSTRING,ULONG);
+PFXSTRING FXStringAppendLong(PFXSTRING string,ULONG longval);
+
+/*
+*
+* Name:FXStringAppendHex
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef PFXSTRING (*FXSTRINGAPPENDHEX)(PFXSTRING,BYTE);
+PFXSTRING FXStringAppendHex(PFXSTRING string,BYTE byte);
+
+/*
+*
 * Name:StringStripPadding
 * Subsystem:KERNEL
 * Description: 
@@ -1464,6 +1651,50 @@ LPCSTR StringfromPointer(LPVOID p,LPSTR bhbuffer);
 
 /*
 *
+* Name:StringCopyToDelimiter
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef LPCSTR (*STRINGCOPYTODELIMITER)(LPCSTR,CHAR);
+LPCSTR StringCopyToDelimiter(LPCSTR text,CHAR marker);
+
+/*
+*
+* Name:StringFirstIndexOf
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef UINT (*STRINGFIRSTINDEXOF)(LPCSTR,CHAR);
+UINT StringFirstIndexOf(LPCSTR text,CHAR marker);
+
+/*
+*
+* Name:StringLastIndexOf
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef UINT (*STRINGLASTINDEXOF)(LPCSTR,CHAR);
+UINT StringLastIndexOf(LPCSTR text,CHAR marker);
+
+/*
+*
+* Name:StringfromChar
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef LPCSTR (*STRINGFROMCHAR)(CHAR,BYTE,LPSTR);
+LPCSTR StringfromChar(CHAR c,BYTE action,LPSTR bhbuffer);
+
+/*
+*
 * Name:StringItoA
 * Subsystem:KERNEL
 * Description: 
@@ -1571,17 +1802,6 @@ LPCHAR StringReplace(LPCSTR s,LPCSTR old,LPCSTR new);
 */
 typedef INT (*STRINGINDEXOF)(LPCHAR,CHAR);
 INT StringIndexOf(LPCHAR chars,CHAR c);
-
-/*
-*
-* Name:StringFromChar
-* Subsystem:KERNEL
-* Description: 
-* Arguments: 
-*
-*/
-typedef LPCHAR (*STRINGFROMCHAR)(CHAR,LPCHAR);
-LPCHAR StringFromChar(CHAR c,LPCHAR toBuffer);
 
 /*
 *

@@ -1,5 +1,5 @@
 # FXOS-SDK
-The FX/OS API [Jun 26, 2021 2:23:16 PM] 
+The FX/OS API [Jul 28, 2021 10:43:36 PM] 
 
 This is the offical SDK for FX/OS.  It is still under heavy development for stabilization and enhancement.
 
@@ -37,7 +37,7 @@ BOOL SendProcessMessage(PFXPROCESS process,MSGTYPE msgType,UINT cmdCId,UINT cmdM
 
 **RegisterIdleProc** - Description: Coming Soon
 ```
-HANDLE RegisterIdleProc(FXIDLEPROCESS idleProc);
+HANDLE RegisterIdleProc(FXIDLEPROCESS idleProc,UINT resolution);
 ```
 
 **UnregisterIdleProc** - Description: Coming Soon
@@ -47,7 +47,7 @@ BOOL UnregisterIdleProc(HANDLE hIdleProc);
 
 **RaiseException** - Description: Coming Soon
 ```
-VOID RaiseException(ULONG ctxId,ULONG errorId,LPVOID exceptionMessage,UINT exMsgSize);
+VOID RaiseException(LPVOID ctxId,ULONG errorId,LPVOID exceptionMessage,UINT exMsgSize);
 ```
 
 **GetProcess** - Description: Coming Soon
@@ -128,6 +128,11 @@ void DebugPointer(char* debugString,void* p);
 **DebugInteger** - Description: Coming Soon
 ```
 void DebugInteger(char* debugString,UINT n);
+```
+
+**DebugHexInteger** - Description: Coming Soon
+```
+void DebugHexInteger(char* debugString,UINT n);
 ```
 
 **GetMouseClientPoint** - Description: Coming Soon
@@ -225,6 +230,11 @@ VOID DebugOn(VOID);
 VOID DebugOff(VOID);
 ```
 
+**GetMilliseconds** - Description: Coming Soon
+```
+ULONG GetMilliseconds(VOID);
+```
+
 **GetRTCHour** - Description: Coming Soon
 ```
 UINT GetRTCHour(VOID);
@@ -285,6 +295,11 @@ void GetHardwareVersionMajor(char* buffer);
 void GetHardwareVersionMinor(char* buffer);
 ```
 
+**GetHardwareRelease** - Description: Coming Soon
+```
+void GetHardwareRelease(char* buffer);
+```
+
 **MemoryCopy** - Description: Coming Soon
 ```
 LPVOID MemoryCopy(LPVOID object,UINT size);
@@ -343,6 +358,56 @@ VOID SegmentUnload(LPVOID segment);
 **GetSegmentInfo** - Description: Coming Soon
 ```
 LPVOID GetSegmentInfo(HANDLE handle);
+```
+
+**IPCOpenPort** - Description: Coming Soon
+```
+PIPCPORT IPCOpenPort(LPCSTR portName,BYTE type);
+```
+
+**IPCGetPort** - Description: Coming Soon
+```
+PIPCPORT IPCGetPort(LPCSTR portName);
+```
+
+**IPCClosePort** - Description: Coming Soon
+```
+VOID IPCClosePort(PIPCPORT port);
+```
+
+**IPCReadPort** - Description: Coming Soon
+```
+LPVOID IPCReadPort(PIPCPORT port);
+```
+
+**IPCPeekPort** - Description: Coming Soon
+```
+LPVOID IPCPeekPort(PIPCPORT port);
+```
+
+**IPCWritePort** - Description: Coming Soon
+```
+UINT IPCWritePort(PIPCPORT port,LPVOID data,UINT size);
+```
+
+**IPCWriteBytePort** - Description: Coming Soon
+```
+VOID IPCWriteBytePort(PIPCPORT port,BYTE data);
+```
+
+**IPCWriteVerbPort** - Description: Coming Soon
+```
+VOID IPCWriteVerbPort(PIPCPORT port,BYTE data1,BYTE data2);
+```
+
+**IPCWriteIntegerPort** - Description: Coming Soon
+```
+VOID IPCWriteIntegerPort(PIPCPORT port,UINT data);
+```
+
+**IPCWriteLongPort** - Description: Coming Soon
+```
+VOID IPCWriteLongPort(PIPCPORT port,ULONG data);
 ```
 
 **QueueInitialize** - Description: Coming Soon
@@ -490,6 +555,11 @@ PFXNODELIST NodeListClear(PFXNODELIST nodelist);
 PFXNODE NodeListFindByName(PFXNODELIST list,LPCSTR name);
 ```
 
+**NodeListFindById** - Description: Coming Soon
+```
+PFXNODE NodeListFindById(PFXNODELIST list,ULONG objId);
+```
+
 **NodeListFindByType** - Description: Coming Soon
 ```
 PFXNODE NodeListFindByType(PFXNODELIST list,BYTE type);
@@ -625,6 +695,21 @@ PFXSTRING FXStringFromLong(ULONG nLong);
 BOOL FXStringEquals(PFXSTRING string,LPCHAR match);
 ```
 
+**FXStringAppendInteger** - Description: Coming Soon
+```
+PFXSTRING FXStringAppendInteger(PFXSTRING string,UINT integer);
+```
+
+**FXStringAppendLong** - Description: Coming Soon
+```
+PFXSTRING FXStringAppendLong(PFXSTRING string,ULONG longval);
+```
+
+**FXStringAppendHex** - Description: Coming Soon
+```
+PFXSTRING FXStringAppendHex(PFXSTRING string,BYTE byte);
+```
+
 **StringStripPadding** - Description: Coming Soon
 ```
 LPSTR StringStripPadding(LPSTR text);
@@ -675,6 +760,26 @@ LPCHAR StringAppendInt(LPCHAR baseText,UINT integer);
 LPCSTR StringfromPointer(LPVOID p,LPSTR bhbuffer);
 ```
 
+**StringCopyToDelimiter** - Description: Coming Soon
+```
+LPCSTR StringCopyToDelimiter(LPCSTR text,CHAR marker);
+```
+
+**StringFirstIndexOf** - Description: Coming Soon
+```
+UINT StringFirstIndexOf(LPCSTR text,CHAR marker);
+```
+
+**StringLastIndexOf** - Description: Coming Soon
+```
+UINT StringLastIndexOf(LPCSTR text,CHAR marker);
+```
+
+**StringfromChar** - Description: Coming Soon
+```
+LPCSTR StringfromChar(CHAR c,BYTE action,LPSTR bhbuffer);
+```
+
 **StringItoA** - Description: Coming Soon
 ```
 LPSTR StringItoA(UINT value,char* result,int base);
@@ -723,11 +828,6 @@ LPCHAR StringReplace(LPCSTR s,LPCSTR old,LPCSTR new);
 **StringIndexOf** - Description: Coming Soon
 ```
 INT StringIndexOf(LPCHAR chars,CHAR c);
-```
-
-**StringFromChar** - Description: Coming Soon
-```
-LPCHAR StringFromChar(CHAR c,LPCHAR toBuffer);
 ```
 
 **FXStringEndWith** - Description: Coming Soon
@@ -1159,6 +1259,11 @@ BOOL DestroyWindow(HWND hWnd);
 HPOINTER RegisterMousePointerClass(LPCSTR pFontName,LPCSTR pCursorData);
 ```
 
+**LoadFontClass** - Description: Coming Soon
+```
+LPVOID LoadFontClass(LPSTR path);
+```
+
 **RegisterFontClass** - Description: Coming Soon
 ```
 HFONT RegisterFontClass(LPCSTR pFontName,LPCSTR pFontData);
@@ -1167,6 +1272,21 @@ HFONT RegisterFontClass(LPCSTR pFontName,LPCSTR pFontData);
 **GetFontClass** - Description: Coming Soon
 ```
 HFONT GetFontClass(LPCSTR pFontName);
+```
+
+**LoadResource** - Description: Coming Soon
+```
+HANDLE LoadResource(LPCSTR resourceFile);
+```
+
+**GetStringTableEntry** - Description: Coming Soon
+```
+PFXSTRING GetStringTableEntry(UINT objId);
+```
+
+**RegisterStringTable** - Description: Coming Soon
+```
+BOOL RegisterStringTable(HANDLE hStringTable,BOOL bRelease);
 ```
 
 **GetMousePointerClass** - Description: Coming Soon
@@ -1199,6 +1319,21 @@ PPOINT GlobalToClientCoordinates(HWND hWnd,PPOINT point);
 PWINDOW CreateMenu(HWND hWndParent,HMENU hMenu,HINSTANCE hInstance);
 ```
 
+**CloseMenu** - Description: Coming Soon
+```
+VOID CloseMenu(HWND hWndMenu);
+```
+
+**SelectMenu** - Description: Coming Soon
+```
+VOID SelectMenu(HWND hWndMenu,UINT index);
+```
+
+**HighlightMenu** - Description: Coming Soon
+```
+VOID HighlightMenu(HWND hWndMenu,UINT index,BOOL selected);
+```
+
 **CreateMenuResource** - Description: Coming Soon
 ```
 HMENU CreateMenuResource(VOID);
@@ -1217,6 +1352,16 @@ VOID SetMenuItemAttribute(HMENU hMenu,HFONT hFont);
 **SetMenuState** - Description: Coming Soon
 ```
 BOOL SetMenuState(HMENU hMenu,UINT cmdId,UINT state);
+```
+
+**SendMenuAccelerator** - Description: Coming Soon
+```
+HWND SendMenuAccelerator(CHAR accelkey);
+```
+
+**SendMenuAcceleratorItem** - Description: Coming Soon
+```
+HWND SendMenuAcceleratorItem(HWND dropDown,UINT menuPos);
 ```
 
 **CreateButton** - Description: Coming Soon
