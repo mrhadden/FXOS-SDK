@@ -1,5 +1,5 @@
 # FXOS-SDK
-The FX/OS API [Jul 28, 2021 10:43:36 PM] 
+The FX/OS API [Oct 14, 2021 4:22:18 PM] 
 
 This is the offical SDK for FX/OS.  It is still under heavy development for stabilization and enhancement.
 
@@ -135,9 +135,9 @@ void DebugInteger(char* debugString,UINT n);
 void DebugHexInteger(char* debugString,UINT n);
 ```
 
-**GetMouseClientPoint** - Description: Coming Soon
+**DebugIntegerArray** - Description: Coming Soon
 ```
-void GetMouseClientPoint(char* debugString,UINT* n,UINT size);
+void DebugIntegerArray(char* debugString,UINT* n,UINT size);
 ```
 
 **DebugLong** - Description: Coming Soon
@@ -300,6 +300,16 @@ void GetHardwareVersionMinor(char* buffer);
 void GetHardwareRelease(char* buffer);
 ```
 
+**CriticalSectionEnter** - Description: Coming Soon
+```
+BOOL CriticalSectionEnter(VOID);
+```
+
+**CriticalSectionExit** - Description: Coming Soon
+```
+VOID CriticalSectionExit(VOID);
+```
+
 **MemoryCopy** - Description: Coming Soon
 ```
 LPVOID MemoryCopy(LPVOID object,UINT size);
@@ -327,7 +337,7 @@ VOID MemoryUnlock(HANDLE handle);
 
 **HeapAlloc** - Description: Coming Soon
 ```
-LPVOID HeapAlloc(UINT size);
+LPVOID HeapAlloc(ULONG size);
 ```
 
 **HeapDealloc** - Description: Coming Soon
@@ -408,6 +418,16 @@ VOID IPCWriteIntegerPort(PIPCPORT port,UINT data);
 **IPCWriteLongPort** - Description: Coming Soon
 ```
 VOID IPCWriteLongPort(PIPCPORT port,ULONG data);
+```
+
+**SetMemoryBlockVirtual** - Description: Coming Soon
+```
+HANDLE SetMemoryBlockVirtual(LPVOID memBlock,UINT attr);
+```
+
+**SetMemoryBlockUser** - Description: Coming Soon
+```
+BOOL SetMemoryBlockUser(LPVOID memBlock,UINT userId);
 ```
 
 **QueueInitialize** - Description: Coming Soon
@@ -830,6 +850,11 @@ LPCHAR StringReplace(LPCSTR s,LPCSTR old,LPCSTR new);
 INT StringIndexOf(LPCHAR chars,CHAR c);
 ```
 
+**StringEndsWith** - Description: Coming Soon
+```
+BOOL StringEndsWith(LPCSTR path,LPCSTR check);
+```
+
 **FXStringEndWith** - Description: Coming Soon
 ```
 BOOL FXStringEndWith(PFXSTRING path,LPCSTR check);
@@ -865,77 +890,82 @@ LPCSTR StringLocalHourMinute(LPCHAR buffer);
 
 **FileOpen** - Description: Coming Soon
 ```
-HRESULT FileOpen(FIL* fp,const TCHAR* path,BYTE mode);
+FILE FileOpen(LPCSTR path,BYTE mode);
 ```
 
 **FileClose** - Description: Coming Soon
 ```
-HRESULT FileClose(FIL* fp);
+HRESULT FileClose(FILE file);
 ```
 
 **FileRead** - Description: Coming Soon
 ```
-HRESULT FileRead(FIL* fp,void* buff,UINT btr,UINT* br);
+HRESULT FileRead(FILE fp,void* buff,UINT btr,UINT* br);
 ```
 
 **FileWrite** - Description: Coming Soon
 ```
-HRESULT FileWrite(FIL* fp,const void* buff,UINT btw,UINT* bw);
+HRESULT FileWrite(FILE fp,const void* buff,UINT btw,UINT* bw);
 ```
 
 **FileSeek** - Description: Coming Soon
 ```
-HRESULT FileSeek(FIL* fp,FSIZE_t ofs);
+HRESULT FileSeek(FILE fp,FSIZE_t ofs);
+```
+
+**FileTruncate** - Description: Coming Soon
+```
+HRESULT FileTruncate(FILE fp);
 ```
 
 **DirOpen** - Description: Coming Soon
 ```
-HRESULT DirOpen(DIR* dp,const TCHAR* path);
+DIRECTORY DirOpen(LPCSTR path);
 ```
 
 **DirClose** - Description: Coming Soon
 ```
-HRESULT DirClose(DIR* dp);
+HRESULT DirClose(DIRECTORY dp);
 ```
 
 **FileFindFirst** - Description: Coming Soon
 ```
-HRESULT FileFindFirst(DIR* dp,FILINFO* fno,const TCHAR* path,const TCHAR* pattern);
+HRESULT FileFindFirst(DIRECTORY dp,FILINFO* fno,const TCHAR* path,const TCHAR* pattern);
 ```
 
 **FileFindNext** - Description: Coming Soon
 ```
-HRESULT FileFindNext(DIR* dp,FILINFO* fno);
+HRESULT FileFindNext(DIRECTORY dp,FILINFO* fno);
 ```
 
 **DirCreate** - Description: Coming Soon
 ```
-HRESULT DirCreate(const TCHAR* path);
+HRESULT DirCreate(LPCSTR path);
 ```
 
 **FileDelete** - Description: Coming Soon
 ```
-HRESULT FileDelete(const TCHAR* path);
+HRESULT FileDelete(LPCSTR path);
 ```
 
 **FileRename** - Description: Coming Soon
 ```
-HRESULT FileRename(const TCHAR* path_old,const TCHAR* path_new);
+HRESULT FileRename(LPCSTR path_old,LPCSTR path_new);
 ```
 
 **FileGetFreeSpace** - Description: Coming Soon
 ```
-HRESULT FileGetFreeSpace(const TCHAR* path,DWORD* nclst,FATFS** fatfs);
+HRESULT FileGetFreeSpace(LPCSTR path,DWORD* nclst,FATFS** fatfs);
 ```
 
 **VolumeGetLabel** - Description: Coming Soon
 ```
-HRESULT VolumeGetLabel(const TCHAR* path,TCHAR* label,DWORD* vsn);
+HRESULT VolumeGetLabel(LPCSTR path,TCHAR* label,DWORD* vsn);
 ```
 
 **VolumeSetLabel** - Description: Coming Soon
 ```
-HRESULT VolumeSetLabel(const TCHAR* label);
+HRESULT VolumeSetLabel(LPCSTR label);
 ```
 
 
@@ -1081,9 +1111,29 @@ void DrawPixel(long x,long y,char pcolor);
 void DrawPixelEx(long x,long y,char pcolor,UINT page);
 ```
 
+**DrawClippedPixel** - Description: Coming Soon
+```
+void DrawClippedPixel(PRECT prect,long x,long y,char pcolor,char mode);
+```
+
+**DrawClippedPixelEx** - Description: Coming Soon
+```
+void DrawClippedPixelEx(PRECT prect,long x,long y,char pcolor,char mode);
+```
+
 **DrawPixelFront** - Description: Coming Soon
 ```
 void DrawPixelFront(long x,long y,char pcolor);
+```
+
+**DrawPixelFrontEx** - Description: Coming Soon
+```
+void DrawPixelFrontEx(long x,long y,char pcolor);
+```
+
+**DrawPixelBackEx** - Description: Coming Soon
+```
+void DrawPixelBackEx(long x,long y,char pcolor);
 ```
 
 **DrawPixelBack** - Description: Coming Soon
@@ -1196,13 +1246,18 @@ UINT GetFontWidth(VOID);
 VOID MousePointerInit(BOOL enable);
 ```
 
-**SetMousePointer** - Description: Coming Soon
+**SetMousePointerData** - Description: Coming Soon
 ```
-VOID SetMousePointer(UINT index,LPVOID pointerData);
+VOID SetMousePointerData(UINT index,LPVOID pointerData);
 ```
 
 
 ### GUI Functions
+
+**GetDesktopWindow** - Description: Coming Soon
+```
+HWND GetDesktopWindow(VOID);
+```
 
 **CreateWindowClass** - Description: Coming Soon
 ```
@@ -1452,6 +1507,11 @@ PPOINT GetMousePoint(PFXOSMESSAGE pMsg,PPOINT point);
 **GetMouseClientPoint** - Description: Coming Soon
 ```
 PPOINT GetMouseClientPoint(PFXOSMESSAGE pMsg,PPOINT point);
+```
+
+**DefaultWindowProc** - Description: Coming Soon
+```
+BOOL DefaultWindowProc(PFXOSMESSAGE pMsg);
 ```
 
 

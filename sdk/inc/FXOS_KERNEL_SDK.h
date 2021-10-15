@@ -1,6 +1,6 @@
 /*
  * FXOS_KERNEL_SDK.h
- * Created Jul 28, 2021 10:43:36 PM
+ * Created Oct 14, 2021 1:43:24 PM
  *
  */
 
@@ -276,14 +276,14 @@ void DebugHexInteger(char* debugString,UINT n);
 
 /*
 *
-* Name:GetMouseClientPoint
+* Name:DebugIntegerArray
 * Subsystem:KERNEL
 * Description: 
 * Arguments: 
 *
 */
-typedef void (*GETMOUSECLIENTPOINT)(char*,UINT*,UINT);
-void GetMouseClientPoint(char* debugString,UINT* n,UINT size);
+typedef void (*DEBUGINTEGERARRAY)(char*,UINT*,UINT);
+void DebugIntegerArray(char* debugString,UINT* n,UINT size);
 
 /*
 *
@@ -639,6 +639,28 @@ void GetHardwareRelease(char* buffer);
 
 /*
 *
+* Name:CriticalSectionEnter
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef BOOL (*CRITICALSECTIONENTER)(VOID);
+BOOL CriticalSectionEnter(VOID);
+
+/*
+*
+* Name:CriticalSectionExit
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef VOID (*CRITICALSECTIONEXIT)(VOID);
+VOID CriticalSectionExit(VOID);
+
+/*
+*
 * Name:MemoryCopy
 * Subsystem:KERNEL
 * Description: 
@@ -700,8 +722,8 @@ VOID MemoryUnlock(HANDLE handle);
 * Arguments: 
 *
 */
-typedef LPVOID (*HEAPALLOC)(UINT);
-LPVOID HeapAlloc(UINT size);
+typedef LPVOID (*HEAPALLOC)(ULONG);
+LPVOID HeapAlloc(ULONG size);
 
 /*
 *
@@ -878,6 +900,28 @@ VOID IPCWriteIntegerPort(PIPCPORT port,UINT data);
 */
 typedef VOID (*IPCWRITELONGPORT)(PIPCPORT,ULONG);
 VOID IPCWriteLongPort(PIPCPORT port,ULONG data);
+
+/*
+*
+* Name:SetMemoryBlockVirtual
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef HANDLE (*SETMEMORYBLOCKVIRTUAL)(LPVOID,UINT);
+HANDLE SetMemoryBlockVirtual(LPVOID memBlock,UINT attr);
+
+/*
+*
+* Name:SetMemoryBlockUser
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef BOOL (*SETMEMORYBLOCKUSER)(LPVOID,UINT);
+BOOL SetMemoryBlockUser(LPVOID memBlock,UINT userId);
 
 /*
 *
@@ -1802,6 +1846,17 @@ LPCHAR StringReplace(LPCSTR s,LPCSTR old,LPCSTR new);
 */
 typedef INT (*STRINGINDEXOF)(LPCHAR,CHAR);
 INT StringIndexOf(LPCHAR chars,CHAR c);
+
+/*
+*
+* Name:StringEndsWith
+* Subsystem:KERNEL
+* Description: 
+* Arguments: 
+*
+*/
+typedef BOOL (*STRINGENDSWITH)(LPCSTR,LPCSTR);
+BOOL StringEndsWith(LPCSTR path,LPCSTR check);
 
 /*
 *

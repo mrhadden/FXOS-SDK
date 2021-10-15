@@ -1,6 +1,6 @@
 /*
  * FXOS_GUI_SDK.h
- * Created Jul 28, 2021 10:43:36 PM
+ * Created Oct 14, 2021 1:43:24 PM
  *
  */
 
@@ -9,6 +9,17 @@
 
 #include "fxtypes.h"
 
+
+/*
+*
+* Name:GetDesktopWindow
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef HWND (*GETDESKTOPWINDOW)(void);
+HWND GetDesktopWindow(VOID);
 
 /*
 *
@@ -559,6 +570,17 @@ PPOINT GetMousePoint(PFXOSMESSAGE pMsg,PPOINT point);
 */
 typedef PPOINT (*GETMOUSECLIENTPOINT)(PFXOSMESSAGE,PPOINT);
 PPOINT GetMouseClientPoint(PFXOSMESSAGE pMsg,PPOINT point);
+
+/*
+*
+* Name:DefaultWindowProc
+* Subsystem:GUI
+* Description: 
+* Arguments: 
+*
+*/
+typedef BOOL (*DEFAULTWINDOWPROC)(PFXOSMESSAGE);
+BOOL DefaultWindowProc(PFXOSMESSAGE pMsg);
 
 
 #endif
